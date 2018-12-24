@@ -31,16 +31,10 @@ public class Hand : MonoBehaviour
 			&& other.gameObject.GetComponent<Collider>() != null
 			&& !heldObjects.ContainsKey(id))
 		{
-			//Debug.Log("Attempted to grab with " + gripID);
-			//Make the grapped object snap to this hand.
-			//collision.transform.position = transform.position;
-
 			//Make the grabbed object move with this hand.
 			other.transform.parent = transform;
 			//Remember that we're holding this object.
 			heldObjects.Add(other.GetInstanceID(), other.transform);
-			//Disable gravity on the grabbed object.
-			//other.transform.gameObject.GetComponent<Rigidbody>().useGravity = false;
 			//Have the grabbed object stop reponding to physics.
 			other.transform.gameObject.GetComponent<Rigidbody>().isKinematic = true;
 		}
@@ -48,9 +42,6 @@ public class Hand : MonoBehaviour
 
 	private void Update()
 	{
-		//if(Input.GetAxis(gripID) != 0)
-			//Debug.Log(gripID + ": " + Input.GetAxis(gripID));
-
 		//Release held objects when the grip button is released.
 		if(Input.GetAxis(gripID) == 0)
 		{
