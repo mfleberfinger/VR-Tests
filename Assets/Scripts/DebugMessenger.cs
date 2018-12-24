@@ -7,12 +7,16 @@ using UnityEngine.UI;
 /// Simple script for displaying messages that can be read by a person wearing
 /// a VR headset.
 /// </summary>
-public class DebugMessenger : MonoBehaviour
+public class DebugMessenger : Singleton<DebugMessenger>
 {
 	[Tooltip("The Text object to use for debug messages.")]
 	[SerializeField]
 	private Text m_debugText;
 
+	private void Awake()
+	{
+		InitializeSingleton(this);
+	}
 
 	private void Update()
 	{
@@ -30,7 +34,8 @@ public class DebugMessenger : MonoBehaviour
 	}
 
 	/// <summary>
-	/// Add a string to the displayed text on a new line.
+	/// Add a string to the displayed text on a new line. If the text box is filled,
+	/// remove the oldest (top) line.
 	/// </summary>
 	/// <param name="text">The text to display.</param>
 	public void ConcatDebugText(string text)
