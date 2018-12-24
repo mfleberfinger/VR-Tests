@@ -1,0 +1,9 @@
+#Windows system thing.
+*desktop.ini*
+
+#Unity things to ignore.
+Platinum\ Planet/Library/
+Platinum\ Planet/Temp/
+
+#Ignore files with the extension used by vim's temporary/recovery files.
+*.swp
