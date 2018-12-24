@@ -18,7 +18,7 @@ public class Hand : MonoBehaviour
     int m_arrInd = 0;
     private Vector3[] m_velocityHistory = new Vector3[32];
     Vector3 m_lastPos;
-    //the above should possibly be in its own class or something whatevewr
+    // the above should possibly be in its own class or something whatevewr
 
 	private void Start()
 	{
@@ -29,7 +29,7 @@ public class Hand : MonoBehaviour
 	{
 		int id = other.GetInstanceID();
 
-		//Grab any objects touching the hand if the grip button is pressed and 
+		// Grab any objects touching the hand if the grip button is pressed and 
 		// the objects have rigidbody components.
 		if(Input.GetAxis(gripID) > 0.99f
 			&& other.gameObject.GetComponent<Rigidbody>() != null
@@ -49,7 +49,7 @@ public class Hand : MonoBehaviour
         m_velocityHistory[m_arrInd] = cur - m_lastPos;
         m_lastPos = cur;
 
-		//Spawn blocks.
+		// Spawn blocks.
 		if(block != null && Input.GetButtonDown("Fire1"))
 		{
 			GameObject.Instantiate(block, transform.position, transform.rotation);
@@ -67,10 +67,10 @@ public class Hand : MonoBehaviour
                 pair.Value.AddForce(Force);
             }
         }
-        //Release held objects when the grip button is released.
+        // Release held objects when the grip button is released.
         else if (m_heldObjects.Count != 0 && Input.GetAxis(gripID) <= 0.99f)
         {
-            //get average velocity
+            // get average velocity
             Vector3 vel = new Vector3(0, 0, 0);
             for (int i = 0; i < m_velocityHistory.Length; ++i)
                 vel += m_velocityHistory[i];
@@ -82,7 +82,7 @@ public class Hand : MonoBehaviour
                 pair.Value.AddForce(10.0f * vel / Time.deltaTime );
                 pair.Value.drag = 1;
             }
-            //Clear the list of held objects since we've dropped them all.
+            // Clear the list of held objects since we've dropped them all.
             m_heldObjects.Clear();
         }
 
