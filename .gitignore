@@ -7,3 +7,6 @@ Platinum\ Planet/Temp/
 
 #Ignore files with the extension used by vim's temporary/recovery files.
 *.swp
+
+#Ignore visual studio thing.
+.vs/*
