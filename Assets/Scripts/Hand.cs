@@ -49,8 +49,6 @@ public class Hand : MonoBehaviour
 			{
 				//Stop the held object from moving with the hand.
 				pair.Value.parent = null;
-				//Enable gravity on the grabbed object.
-				//pair.Value.GetComponent<Rigidbody>().useGravity = true;
 				//Have the grabbed object start reponding to physics.
 				pair.Value.GetComponent<Rigidbody>().isKinematic = false;
 			}
