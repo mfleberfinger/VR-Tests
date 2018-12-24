@@ -12,13 +12,17 @@ public class Hand : MonoBehaviour
 	[SerializeField]
 	private GameObject block;
 
-	private Dictionary<int, Transform> heldObjects;
+	private Dictionary<int, Rigidbody> m_heldObjects;
 
-
+    // keep track of velocity in last 32 frames and use weighted average in release velocity
+    int m_arrInd = 0;
+    private Vector3[] m_velocityHistory = new Vector3[32];
+    Vector3 m_lastPos;
+    //the above should possibly be in its own class or something whatevewr
 
 	private void Start()
 	{
-		heldObjects = new Dictionary<int, Transform>();
+		m_heldObjects = new Dictionary<int, Rigidbody>();
 	}
 
 	private void OnTriggerStay(Collider other)
@@ -27,34 +31,23 @@ public class Hand : MonoBehaviour
 
 		//Grab any objects touching the hand if the grip button is pressed and 
 		// the objects have rigidbody components.
-		if(Input.GetAxis(gripID) > 0
-			&& other.gameObject.GetComponent<Collider>() != null
-			&& !heldObjects.ContainsKey(id))
+		if(Input.GetAxis(gripID) > 0.95f
+			&& other.gameObject.GetComponent<Rigidbody>() != null
+			&& !m_heldObjects.ContainsKey(id))
 		{
-			//Make the grabbed object move with this hand.
-			other.transform.parent = transform;
-			//Remember that we're holding this object.
-			heldObjects.Add(other.GetInstanceID(), other.transform);
-			//Have the grabbed object stop reponding to physics.
-			other.transform.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+			m_heldObjects.Add(other.GetInstanceID(), other.attachedRigidbody);
+            other.attachedRigidbody.drag = 5;
 		}
 	}
 
 	private void Update()
 	{
-		//Release held objects when the grip button is released.
-		if(Input.GetAxis(gripID) == 0)
-		{
-			foreach(KeyValuePair<int, Transform> pair in heldObjects)
-			{
-				//Stop the held object from moving with the hand.
-				pair.Value.parent = null;
-				//Have the grabbed object start reponding to physics.
-				pair.Value.GetComponent<Rigidbody>().isKinematic = false;
-			}
-			//Clear the list of held objects since we've dropped them all.
-			heldObjects.Clear();
-		}
+        Vector3 cur = transform.position;
+        ++m_arrInd;
+        if (m_arrInd >= m_velocityHistory.Length)
+            m_arrInd = 0;
+        m_velocityHistory[m_arrInd] = cur - m_lastPos;
+        m_lastPos = cur;
 
 		//Spawn blocks.
 		if(block != null && Input.GetButtonDown("Fire1"))
@@ -62,4 +55,34 @@ public class Hand : MonoBehaviour
 			GameObject.Instantiate(block, transform.position, transform.rotation);
 		}
 	}
+    private void FixedUpdate()
+    {
+        Vector3 cur = transform.position;
+        if (m_heldObjects.Count != 0 && Input.GetAxis(gripID) > 0.95f)
+        {
+            foreach (KeyValuePair<int, Rigidbody> pair in m_heldObjects)
+            {
+                Vector3 Force = (cur - pair.Value.position) / Time.deltaTime;
+                Force *= Force.magnitude;
+                pair.Value.AddForce(Force);
+            }
+        }
+        //Release held objects when the grip button is released.
+        else if (m_heldObjects.Count != 0 && Input.GetAxis(gripID) <= 0.95f)
+        {
+            //get average velocity
+            Vector3 vel = new Vector3(0, 0, 0);
+            for (int i = 0; i < m_velocityHistory.Length; ++i)
+                vel += m_velocityHistory[i];
+
+            foreach (KeyValuePair<int, Rigidbody> pair in m_heldObjects)
+            {
+                pair.Value.AddForce(vel / Time.deltaTime );
+                pair.Value.drag = 1;
+            }
+            //Clear the list of held objects since we've dropped them all.
+            m_heldObjects.Clear();
+        }
+
+    }
 }
