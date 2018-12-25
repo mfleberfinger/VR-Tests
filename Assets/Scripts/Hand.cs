@@ -31,12 +31,12 @@ public class Hand : MonoBehaviour
 
 		//Grab any objects touching the hand if the grip button is pressed and 
 		// the objects have rigidbody components.
-		if(Input.GetAxis(gripID) > 0.95f
+		if(Input.GetAxis(gripID) > 0.99f
 			&& other.gameObject.GetComponent<Rigidbody>() != null
 			&& !m_heldObjects.ContainsKey(id))
 		{
 			m_heldObjects.Add(other.GetInstanceID(), other.attachedRigidbody);
-            other.attachedRigidbody.drag = 5;
+            other.attachedRigidbody.drag = 15;
 		}
 	}
 
@@ -58,7 +58,7 @@ public class Hand : MonoBehaviour
     private void FixedUpdate()
     {
         Vector3 cur = transform.position;
-        if (m_heldObjects.Count != 0 && Input.GetAxis(gripID) > 0.95f)
+        if (m_heldObjects.Count != 0 && Input.GetAxis(gripID) > 0.99f)
         {
             foreach (KeyValuePair<int, Rigidbody> pair in m_heldObjects)
             {
@@ -68,7 +68,7 @@ public class Hand : MonoBehaviour
             }
         }
         //Release held objects when the grip button is released.
-        else if (m_heldObjects.Count != 0 && Input.GetAxis(gripID) <= 0.95f)
+        else if (m_heldObjects.Count != 0 && Input.GetAxis(gripID) <= 0.99f)
         {
             //get average velocity
             Vector3 vel = new Vector3(0, 0, 0);
@@ -77,7 +77,9 @@ public class Hand : MonoBehaviour
 
             foreach (KeyValuePair<int, Rigidbody> pair in m_heldObjects)
             {
-                pair.Value.AddForce(vel / Time.deltaTime );
+
+                pair.Value.velocity = Vector3.zero;
+                pair.Value.AddForce(10.0f * vel / Time.deltaTime );
                 pair.Value.drag = 1;
             }
             //Clear the list of held objects since we've dropped them all.
