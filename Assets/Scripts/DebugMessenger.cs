@@ -11,7 +11,7 @@ public class DebugMessenger : Singleton<DebugMessenger>
 {
 	[Tooltip("The Text object to use for debug messages.")]
 	[SerializeField]
-	private Text m_debugText;
+	private Text m_debugText = null;
 
 	private void Awake()
 	{
