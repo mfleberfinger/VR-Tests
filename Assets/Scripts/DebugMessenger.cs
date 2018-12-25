@@ -40,7 +40,7 @@ public class DebugMessenger : Singleton<DebugMessenger>
 	/// <param name="text">The text to display.</param>
 	public void ConcatDebugText(string text)
 	{
-		m_debugText.text = "\n" + m_debugText.text + " " + text;
+		m_debugText.text =  m_debugText.text + "\n" + text;
 	}
 
 	/// <summary>

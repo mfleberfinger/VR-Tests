@@ -18,7 +18,7 @@ public class Hand : MonoBehaviour
 
     // keep track of velocity in last 32 frames and use weighted average in release velocity
     int m_arrInd = 0;
-    private Vector3[] m_velocityHistory = new Vector3[16];
+    private Vector3[] m_velocityHistory = new Vector3[32];
     Vector3 m_lastPos;
     // the above should possibly be in its own class or something whatevewr
 
@@ -38,7 +38,7 @@ public class Hand : MonoBehaviour
             && !m_heldObjects.ContainsKey(id))
         {
             m_heldObjects.Add(other.GetInstanceID(), other.attachedRigidbody);
-            other.attachedRigidbody.drag = 15;
+            other.attachedRigidbody.drag = 25;
         }
     }
 
@@ -50,8 +50,14 @@ public class Hand : MonoBehaviour
             m_arrInd = 0;
         m_velocityHistory[m_arrInd] = cur - m_lastPos;
         m_lastPos = cur;
+        float rawin = Input.GetAxisRaw(gripID);
+        float gripin = Input.GetAxis(gripID);
 
-        if (Input.GetAxisRaw(gripID) > 0.60f)
+        DebugMessenger.instance.SetDebugText(
+            String.Format("Raw Axis Input: {0}\n Normal Axis Input: {1}",
+            rawin,gripin));
+
+        if ( rawin > 0.95f)
         {
             m_State = HandStates.Hold;
         }
