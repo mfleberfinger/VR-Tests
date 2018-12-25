@@ -433,8 +433,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa7a693d3424fd546adfe8414cd1ec83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gripID: Grip - Right
-  block: {fileID: 5505576329034965082, guid: b48947348a20f12409fa77372148c369, type: 3}
+  m_gripID: Grip - Right
+  m_block: {fileID: 5505576329034965082, guid: b48947348a20f12409fa77372148c369, type: 3}
 --- !u!1 &1222736148008938461
 GameObject:
   m_ObjectHideFlags: 0
@@ -539,8 +539,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa7a693d3424fd546adfe8414cd1ec83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gripID: Grip - Left
-  block: {fileID: 0}
+  m_gripID: Grip - Left
+  m_block: {fileID: 0}
 --- !u!1 &1222736148176252403
 GameObject:
   m_ObjectHideFlags: 0
