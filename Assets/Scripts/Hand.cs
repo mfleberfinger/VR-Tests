@@ -12,24 +12,23 @@ public class Hand : MonoBehaviour
 	[SerializeField]
 	private GameObject block;
 
-	private Dictionary<Guid, Transform> heldObjects;
+	private Dictionary<int, Transform> heldObjects;
 
 
 	private void Start()
 	{
-		heldObjects = new Dictionary<Guid, Transform>();
+		heldObjects = new Dictionary<int, Transform>();
 	}
 
 	private void OnTriggerStay(Collider other)
 	{
-		ID id = other.GetComponent<ID>();
+		int id = other.GetInstanceID();
 
 		//Grab any objects touching the hand if the grip button is pressed and 
 		// the objects have rigidbody components.
 		if(Input.GetAxis(gripID) > 0
-			&& id != null
 			&& other.gameObject.GetComponent<Collider>() != null
-			&& !heldObjects.ContainsKey(id.guid))
+			&& !heldObjects.ContainsKey(id))
 		{
 			//Debug.Log("Attempted to grab with " + gripID);
 			//Make the grapped object snap to this hand.
@@ -38,7 +37,7 @@ public class Hand : MonoBehaviour
 			//Make the grabbed object move with this hand.
 			other.transform.parent = transform;
 			//Remember that we're holding this object.
-			heldObjects.Add(other.GetComponent<ID>().guid, other.transform);
+			heldObjects.Add(other.GetInstanceID(), other.transform);
 			//Disable gravity on the grabbed object.
 			//other.transform.gameObject.GetComponent<Rigidbody>().useGravity = false;
 			//Have the grabbed object stop reponding to physics.
@@ -54,7 +53,7 @@ public class Hand : MonoBehaviour
 		//Release held objects when the grip button is released.
 		if(Input.GetAxis(gripID) == 0)
 		{
-			foreach(KeyValuePair<Guid, Transform> pair in heldObjects)
+			foreach(KeyValuePair<int, Transform> pair in heldObjects)
 			{
 				//Stop the held object from moving with the hand.
 				pair.Value.parent = null;
