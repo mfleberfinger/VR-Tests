@@ -26,46 +26,47 @@ public class Hand : MonoBehaviour
 	{
 		int id = other.GetInstanceID();
 
-		//Grab any objects touching the hand if the grip button is pressed and 
+		// Grab any objects touching the hand if the grip button is pressed and 
 		// the objects have rigidbody components.
 		if(Input.GetAxis(gripID) >= 1
 			&& other.gameObject.GetComponent<Collider>() != null
 			&& !heldObjects.ContainsKey(id))
 		{
-			//Make the grabbed object move with this hand.
+			// Make the grabbed object move with this hand.
 			other.transform.parent = transform;
-			//Remember that we're holding this object.
+			// Remember that we're holding this object.
 			heldObjects.Add(other.GetInstanceID(), other.transform);
-			//Have the grabbed object stop reponding to physics.
+			// Have the grabbed object stop reponding to physics.
 			other.transform.gameObject.GetComponent<Rigidbody>().isKinematic = true;
 		}
 	}
 
-	private void Update()
+	private void FixedUpdate()
 	{
 		//TODO: Remove test code.
 		axisValues = "Left: " + Input.GetAxis("Grip - Left").ToString();
 		axisValues += "\nRight: " + Input.GetAxis("Grip - Right").ToString();
 		DebugMessenger.instance.SetDebugText(axisValues);
 
-		//Release held objects when the grip button is released.
+		// Release held objects when the grip button is released.
 		if(Input.GetAxis(gripID) < 1)
 		{
 			foreach(KeyValuePair<int, Transform> pair in heldObjects)
 			{
-				if (pair.Value.transform == transform)
+				// Drop the object if it is still held by this hand.
+				if (pair.Value.parent == transform)
 				{	
-					//Stop the held object from moving with the hand.
+					// Stop the held object from moving with the hand.
 					pair.Value.parent = null;
-					//Have the grabbed object start reponding to physics.
+					// Have the grabbed object start reponding to physics.
 					pair.Value.GetComponent<Rigidbody>().isKinematic = false;
 				}
 			}
-			//Clear the list of held objects since we've dropped them all.
+			// Clear the list of held objects since we've dropped them all.
 			heldObjects.Clear();
 		}
 
-		//Spawn blocks.
+		// Spawn blocks.
 		if(block != null && Input.GetButtonDown("Fire1"))
 		{
 			GameObject.Instantiate(block, transform.position, transform.rotation);
