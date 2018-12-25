@@ -8,9 +8,6 @@ public class consumePen : MonoBehaviour
     private int fuckups = 0;
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("triggered");
-        Destroy(other.gameObject);
-        /*
         if (other.gameObject.tag == "Cap")
         {
             ++fuckups;
@@ -22,6 +19,6 @@ public class consumePen : MonoBehaviour
             else
                 ++pensCompleted;
             Destroy(other.gameObject);
-        }*/
+        }
     }
 }

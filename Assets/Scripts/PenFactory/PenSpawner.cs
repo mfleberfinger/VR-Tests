@@ -7,10 +7,10 @@ public class PenSpawner : MonoBehaviour
 {
     [Tooltip("Time between spawns of the item, in float seconds")]
     [SerializeField]
-    private float spawnRate;
+    private float spawnRate = 0;
     [Tooltip("The object to spawn at the spawnpoint")]
     [SerializeField]
-    private GameObject spawnObject;
+    private GameObject spawnObject = null;
 
     private float spawnTimer = 0;
 

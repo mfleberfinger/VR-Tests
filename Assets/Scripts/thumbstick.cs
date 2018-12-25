@@ -6,13 +6,13 @@ public class thumbstick : MonoBehaviour
 {
     [Tooltip("Thumbstick to use for X movement")]
     [SerializeField]
-    private string thumbStickIDX;
+    private string thumbStickIDX=null;
     [Tooltip("Thumbstick to use for Z movement")]
     [SerializeField]
-    private string thumbStickIDY;
+    private string thumbStickIDY=null;
     [Tooltip("Left Hand to Normalize Movement Against")]
     [SerializeField]
-    GameObject leftHand;
+    GameObject leftHand=null;
 
     // Start is called before the first frame update
     void Start()
