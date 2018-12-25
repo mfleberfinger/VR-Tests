@@ -53,10 +53,13 @@ public class Hand : MonoBehaviour
 		{
 			foreach(KeyValuePair<int, Transform> pair in heldObjects)
 			{
-				//Stop the held object from moving with the hand.
-				pair.Value.parent = null;
-				//Have the grabbed object start reponding to physics.
-				pair.Value.GetComponent<Rigidbody>().isKinematic = false;
+				if (pair.Value.transform == transform)
+				{	
+					//Stop the held object from moving with the hand.
+					pair.Value.parent = null;
+					//Have the grabbed object start reponding to physics.
+					pair.Value.GetComponent<Rigidbody>().isKinematic = false;
+				}
 			}
 			//Clear the list of held objects since we've dropped them all.
 			heldObjects.Clear();
