@@ -14,6 +14,8 @@ public class Hand : MonoBehaviour
 
 	private Dictionary<int, Transform> heldObjects;
 
+	//TODO: Remove testing code.
+	string axisValues;
 
 	private void Start()
 	{
@@ -26,20 +28,14 @@ public class Hand : MonoBehaviour
 
 		//Grab any objects touching the hand if the grip button is pressed and 
 		// the objects have rigidbody components.
-		if(Input.GetAxis(gripID) > 0
+		if(Input.GetAxis(gripID) >= 1
 			&& other.gameObject.GetComponent<Collider>() != null
 			&& !heldObjects.ContainsKey(id))
 		{
-			//Debug.Log("Attempted to grab with " + gripID);
-			//Make the grapped object snap to this hand.
-			//collision.transform.position = transform.position;
-
 			//Make the grabbed object move with this hand.
 			other.transform.parent = transform;
 			//Remember that we're holding this object.
 			heldObjects.Add(other.GetInstanceID(), other.transform);
-			//Disable gravity on the grabbed object.
-			//other.transform.gameObject.GetComponent<Rigidbody>().useGravity = false;
 			//Have the grabbed object stop reponding to physics.
 			other.transform.gameObject.GetComponent<Rigidbody>().isKinematic = true;
 		}
@@ -47,18 +43,18 @@ public class Hand : MonoBehaviour
 
 	private void Update()
 	{
-		//if(Input.GetAxis(gripID) != 0)
-			//Debug.Log(gripID + ": " + Input.GetAxis(gripID));
+		//TODO: Remove test code.
+		axisValues = "Left: " + Input.GetAxis("Grip - Left").ToString();
+		axisValues += "\nRight: " + Input.GetAxis("Grip - Right").ToString();
+		DebugMessenger.instance.SetDebugText(axisValues);
 
 		//Release held objects when the grip button is released.
-		if(Input.GetAxis(gripID) == 0)
+		if(Input.GetAxis(gripID) < 1)
 		{
 			foreach(KeyValuePair<int, Transform> pair in heldObjects)
 			{
 				//Stop the held object from moving with the hand.
 				pair.Value.parent = null;
-				//Enable gravity on the grabbed object.
-				//pair.Value.GetComponent<Rigidbody>().useGravity = true;
 				//Have the grabbed object start reponding to physics.
 				pair.Value.GetComponent<Rigidbody>().isKinematic = false;
 			}
