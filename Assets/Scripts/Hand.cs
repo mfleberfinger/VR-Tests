@@ -4,104 +4,73 @@ using UnityEngine;
 
 public class Hand : MonoBehaviour
 {
-    [Tooltip("The axis ID of this hand's grip button.")]
-    [SerializeField]
-    private string gripID;
+	[Tooltip("The axis ID of this hand's grip button.")]
+	[SerializeField]
+	private string gripID;
+	
+	[Tooltip("The object to spawn at this hand, if any.")]
+	[SerializeField]
+	private GameObject block;
 
-    [Tooltip("The object to spawn at this hand, if any.")]
-    [SerializeField]
-    private GameObject block;
+	private Dictionary<Guid, Transform> heldObjects;
 
-    private Dictionary<int, Rigidbody> m_heldObjects;
-    private enum HandStates : byte { Release, Hold };
-    private HandStates m_State;
 
-    // keep track of velocity in last 32 frames and use weighted average in release velocity
-    int m_arrInd = 0;
-    private Vector3[] m_velocityHistory = new Vector3[32];
-    Vector3 m_lastPos;
-    // the above should possibly be in its own class or something whatevewr
+	private void Start()
+	{
+		heldObjects = new Dictionary<Guid, Transform>();
+	}
 
-    private void Start()
-    {
-        m_heldObjects = new Dictionary<int, Rigidbody>();
-    }
+	private void OnTriggerStay(Collider other)
+	{
+		ID id = other.GetComponent<ID>();
 
-    private void OnTriggerStay(Collider other)
-    {
-        int id = other.GetInstanceID();
+		//Grab any objects touching the hand if the grip button is pressed and 
+		// the objects have rigidbody components.
+		if(Input.GetAxis(gripID) > 0
+			&& id != null
+			&& other.gameObject.GetComponent<Collider>() != null
+			&& !heldObjects.ContainsKey(id.guid))
+		{
+			//Debug.Log("Attempted to grab with " + gripID);
+			//Make the grapped object snap to this hand.
+			//collision.transform.position = transform.position;
 
-        // Grab any objects touching the hand if the grip button is pressed and 
-        // the objects have rigidbody components.
-        if (m_State == HandStates.Hold
-            && other.gameObject.GetComponent<Rigidbody>() != null
-            && !m_heldObjects.ContainsKey(id))
-        {
-            m_heldObjects.Add(other.GetInstanceID(), other.attachedRigidbody);
-            other.attachedRigidbody.drag = 25;
-        }
-    }
+			//Make the grabbed object move with this hand.
+			other.transform.parent = transform;
+			//Remember that we're holding this object.
+			heldObjects.Add(other.GetComponent<ID>().guid, other.transform);
+			//Disable gravity on the grabbed object.
+			//other.transform.gameObject.GetComponent<Rigidbody>().useGravity = false;
+			//Have the grabbed object stop reponding to physics.
+			other.transform.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+		}
+	}
 
-    private void Update()
-    {
-        Vector3 cur = transform.position;
-        ++m_arrInd;
-        if (m_arrInd >= m_velocityHistory.Length)
-            m_arrInd = 0;
-        m_velocityHistory[m_arrInd] = cur - m_lastPos;
-        m_lastPos = cur;
-        float rawin = Input.GetAxisRaw(gripID);
-        float gripin = Input.GetAxis(gripID);
+	private void Update()
+	{
+		//if(Input.GetAxis(gripID) != 0)
+			//Debug.Log(gripID + ": " + Input.GetAxis(gripID));
 
-        DebugMessenger.instance.SetDebugText(
-            String.Format("Raw Axis Input: {0}\n Normal Axis Input: {1}",
-            rawin,gripin));
+		//Release held objects when the grip button is released.
+		if(Input.GetAxis(gripID) == 0)
+		{
+			foreach(KeyValuePair<Guid, Transform> pair in heldObjects)
+			{
+				//Stop the held object from moving with the hand.
+				pair.Value.parent = null;
+				//Enable gravity on the grabbed object.
+				//pair.Value.GetComponent<Rigidbody>().useGravity = true;
+				//Have the grabbed object start reponding to physics.
+				pair.Value.GetComponent<Rigidbody>().isKinematic = false;
+			}
+			//Clear the list of held objects since we've dropped them all.
+			heldObjects.Clear();
+		}
 
-        if ( rawin > 0.95f)
-        {
-            m_State = HandStates.Hold;
-        }
-        else
-        {
-            m_State = HandStates.Release;
-        }
-
-        //Spawn blocks.
-        if (block != null && Input.GetButtonDown("Fire1"))
-        {
-            GameObject.Instantiate(block, transform.position, transform.rotation);
-        }
-    }
-    private void FixedUpdate()
-    {
-        Vector3 cur = transform.position;
-        if (m_heldObjects.Count != 0 && m_State == HandStates.Hold)
-        {
-            foreach (KeyValuePair<int, Rigidbody> pair in m_heldObjects)
-            {
-                Vector3 Force = (cur - pair.Value.position) / Time.deltaTime;
-                Force *= Force.magnitude;
-                pair.Value.AddForce(Force);
-            }
-        }
-        //Release held objects when the grip button is released.
-        else if (m_heldObjects.Count != 0 && m_State == HandStates.Release)
-        {
-            // get average velocity
-            Vector3 vel = new Vector3(0, 0, 0);
-            for (int i = 0; i < m_velocityHistory.Length; ++i)
-                vel += m_velocityHistory[i];
-
-            foreach (KeyValuePair<int, Rigidbody> pair in m_heldObjects)
-            {
-
-                pair.Value.velocity = Vector3.zero;
-                pair.Value.AddForce(10.0f * vel / Time.deltaTime);
-                pair.Value.drag = 1;
-            }
-            // Clear the list of held objects since we've dropped them all.
-            m_heldObjects.Clear();
-        }
-
-    }
+		//Spawn blocks.
+		if(block != null && Input.GetButtonDown("Fire1"))
+		{
+			GameObject.Instantiate(block, transform.position, transform.rotation);
+		}
+	}
 }
