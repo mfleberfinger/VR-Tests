@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -423,6 +423,21 @@ PrefabInstance:
       propertyPath: m_debugText
       value: 
       objectReference: {fileID: 122491027}
+    - target: {fileID: 7501060355364896677, guid: 166c10cd2c321844ea5951136e9a5f7d,
+        type: 3}
+      propertyPath: secondaryStickIDX
+      value: SecondaryThumbStick - X
+      objectReference: {fileID: 0}
+    - target: {fileID: 7501060355364896677, guid: 166c10cd2c321844ea5951136e9a5f7d,
+        type: 3}
+      propertyPath: primaryStickIDY
+      value: PrimaryThumbstick - Y
+      objectReference: {fileID: 0}
+    - target: {fileID: 7501060355364896677, guid: 166c10cd2c321844ea5951136e9a5f7d,
+        type: 3}
+      propertyPath: primaryStickIDX
+      value: PrimaryThumbstick - X
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 166c10cd2c321844ea5951136e9a5f7d, type: 3}
 --- !u!1001 &5505576327970357893
