@@ -488,8 +488,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa7a693d3424fd546adfe8414cd1ec83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_gripID: Grip - Right
-  m_block: {fileID: 5505576329034965082, guid: b48947348a20f12409fa77372148c369, type: 3}
+  gripID: Grip - Right
+  spawnBlock: {fileID: 5505576329034965082, guid: b48947348a20f12409fa77372148c369,
+    type: 3}
+  throwMultiplier: 1.4
+  throwSamples: 8
+  releaseParam: 0.36
 --- !u!1 &1222736148008938461
 GameObject:
   m_ObjectHideFlags: 0
@@ -594,8 +598,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa7a693d3424fd546adfe8414cd1ec83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_gripID: Grip - Left
-  m_block: {fileID: 0}
+  gripID: Grip - Left
+  spawnBlock: {fileID: 0}
+  throwMultiplier: 1.4
+  throwSamples: 8
+  releaseParam: 0.36
 --- !u!1 &1222736148176252403
 GameObject:
   m_ObjectHideFlags: 0

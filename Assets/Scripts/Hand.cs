@@ -6,20 +6,27 @@ public class Hand : MonoBehaviour
 {
 	[Tooltip("The axis ID of this hand's grip button.")]
 	[SerializeField]
-	private string m_gripID = "";
+	private string gripID = "";
 	
 	[Tooltip("The object to spawn at this hand, if any.")]
 	[SerializeField]
-	private GameObject m_block = null;
+	private GameObject spawnBlock = null;
+
+	[Tooltip ("Multiply the velocity imparted to a thrown object to make it \"feel right.\"")]
+	[SerializeField]
+	private float throwMultiplier = 1.4f; //default value determined empirically
+
+	[Tooltip ("Number of data points to use for the velocity moving average.")]
+	[SerializeField]
+	private int throwSamples = 8; //default value determined empirically
+
+	[Tooltip ("Grip bound value between held and released states")]
+	[SerializeField]
+	private float releaseParam = 0.36f; //default value determined empirically
 
     // States the hand can be in
     enum HandState : byte {Empty, Hold};
     HandState m_State = HandState.Empty;
-
-	// Number of data points to use for the velocity moving average.
-	private const int m_TicksToAverage = 10;
-	// Multiply the velocity imparted to a thrown object to make it "feel right."
-	private const float m_ThrowMultiplier = 2.5f;
 
 	// The currently held object (if any).
 	private Transform m_heldObject;
@@ -39,7 +46,7 @@ public class Hand : MonoBehaviour
 	{
 		m_velocities = new Queue<Vector3>();
 		
-		for (int i = 0; i < m_TicksToAverage; i++)
+		for (int i = 0; i < throwSamples; i++)
 			m_velocities.Enqueue(Vector3.zero);
 
 		m_heldObject = null;
@@ -68,8 +75,8 @@ public class Hand : MonoBehaviour
 
     private void Update()
     {
-        float rawInput = Input.GetAxisRaw(m_gripID);
-        if (rawInput < 0.2f)
+        float rawInput = Input.GetAxisRaw(gripID);
+        if (rawInput < releaseParam)
         {
             m_State = HandState.Empty;
         }
@@ -77,9 +84,9 @@ public class Hand : MonoBehaviour
         {
             m_State = HandState.Hold;
         }
-        if (m_block != null && Input.GetButtonDown("Fire1"))
+        if (spawnBlock != null && Input.GetButtonDown("Fire1"))
         {
-			GameObject.Instantiate(m_block, transform.position, transform.rotation);
+			GameObject.Instantiate(spawnBlock, transform.position, transform.rotation);
         }
     }
 
@@ -106,8 +113,8 @@ public class Hand : MonoBehaviour
 					rigidbody.isKinematic = false;
 					//Apply the hand's recent average velocity to the object.
 					rigidbody.velocity =
-						(m_sumOfVelocities / m_TicksToAverage) * m_ThrowMultiplier;
-					//Allow the object to collide with the player again.
+						(m_sumOfVelocities / throwSamples) * throwMultiplier;
+					//Allow the object to collide/mutkj with the player again.
 					m_heldObject.gameObject.layer = 0;
 				}
 
