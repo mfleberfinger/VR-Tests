@@ -74,7 +74,7 @@ public class Hand : MonoBehaviour
         {
             m_State = HandState.Hold;
         }
-        if (Input.GetButtonDown("Fire1"))
+        if (m_block != null && Input.GetButtonDown("Fire1"))
         {
 			GameObject.Instantiate(m_block, transform.position, transform.rotation);
         }
