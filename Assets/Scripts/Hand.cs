@@ -12,10 +12,14 @@ public class Hand : MonoBehaviour
 	[SerializeField]
 	private GameObject m_block = null;
 
+    // States the hand can be in
+    enum HandState : byte {Empty, Hold};
+    HandState m_State = HandState.Empty;
+
 	// Number of data points to use for the velocity moving average.
-	private const int TicksToAverage = 10;
+	private const int m_TicksToAverage = 10;
 	// Multiply the velocity imparted to a thrown object to make it "feel right."
-	private const float ThrowMultiplier = 2.5f;
+	private const float m_ThrowMultiplier = 2.5f;
 
 	// The currently held object (if any).
 	private Transform m_heldObject;
@@ -35,7 +39,7 @@ public class Hand : MonoBehaviour
 	{
 		m_velocities = new Queue<Vector3>();
 		
-		for (int i = 0; i < TicksToAverage; i++)
+		for (int i = 0; i < m_TicksToAverage; i++)
 			m_velocities.Enqueue(Vector3.zero);
 
 		m_heldObject = null;
@@ -46,7 +50,7 @@ public class Hand : MonoBehaviour
 	{
 		// Grab any objects touching the hand if the grip button is pressed and 
 		// the objects have rigidbody components.
-		if (Input.GetAxis(m_gripID) >= 1
+		if (m_State == HandState.Hold
 			&& other.gameObject.GetComponent<Rigidbody>() != null
 			&& m_heldObject == null)
 		{
@@ -58,6 +62,23 @@ public class Hand : MonoBehaviour
 			other.transform.gameObject.GetComponent<Rigidbody>().isKinematic = true;
 		}
 	}
+
+    private void Update()
+    {
+        float rawInput = Input.GetAxisRaw(m_gripID);
+        if (rawInput < 1)
+        {
+            m_State = HandState.Empty;
+        }
+        else
+        {
+            m_State = HandState.Hold;
+        }
+        if (Input.GetButtonDown("Fire1"))
+        {
+			GameObject.Instantiate(m_block, transform.position, transform.rotation);
+        }
+    }
 
 	private void FixedUpdate()
 	{
@@ -80,7 +101,7 @@ public class Hand : MonoBehaviour
 		m_velocities.Enqueue(m_velocity);
 
 		// Release any held object when the grip button is released.
-		if (Input.GetAxis(m_gripID) < 1)
+		if (m_State == HandState.Empty)
 		{
 			if (m_heldObject != null)
 			{
@@ -94,17 +115,11 @@ public class Hand : MonoBehaviour
 					rigidbody.isKinematic = false;
 					//Apply the hand's recent average velocity to the object.
 					rigidbody.velocity =
-						(m_sumOfVelocities / TicksToAverage) * ThrowMultiplier;
+						(m_sumOfVelocities / m_TicksToAverage) * m_ThrowMultiplier;
 				}
 
 				m_heldObject = null;
 			}
-		}
-
-		// Spawn blocks.
-		if (m_block != null && Input.GetButtonDown("Fire1"))
-		{
-			GameObject.Instantiate(m_block, transform.position, transform.rotation);
 		}
 
 		m_lastPosition = transform.position;
