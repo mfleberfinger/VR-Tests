@@ -36,8 +36,11 @@ public class thumbstick : MonoBehaviour
 
 	private void Update()
 	{
+		// Translation
 		m_fwdInput = -Input.GetAxis(primaryStickIDY) * translationScaleFactor;
         m_sideInput = -Input.GetAxis(primaryStickIDX) * translationScaleFactor;
+
+		// Rotation
 		m_fwd = leftHand.transform.forward;
         m_fwd.y = 0;
         m_fwd.Normalize();
