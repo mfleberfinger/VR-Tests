@@ -27,7 +27,7 @@ public class thumbstick : MonoBehaviour
     private float rotationSnapCooldown = .35f;
 	[Tooltip("XR Rig's rigidbody.")]
     [SerializeField]
-	private Rigidbody rigidbody = null;
+	private Rigidbody rb = null;
 
     private float m_rotationCooldownTimer = 0.0f;
 	private float m_fwdInput, m_sideInput;
@@ -53,7 +53,7 @@ public class thumbstick : MonoBehaviour
         Vector3 right = Vector3.Cross(m_fwd, new Vector3(0, 1, 0));
         thisMove += m_fwdInput * m_fwd;
         thisMove += m_sideInput * right;
-        rigidbody.MovePosition(transform.position + thisMove);
+        rb.MovePosition(transform.position + thisMove);
 
         // Rotation
         float rotInput = Input.GetAxis(secondaryStickIDX);
@@ -62,8 +62,8 @@ public class thumbstick : MonoBehaviour
             //transform.Rotate(Vector3.up, Mathf.Sign(rotInput) * rotationSnapAngle);
 			Quaternion rot = new Quaternion();
 			rot.eulerAngles = new Vector3(0, Mathf.Sign(rotInput) * rotationSnapAngle)
-				+ rigidbody.rotation.eulerAngles;
-			rigidbody.rotation = rot;
+				+ rb.rotation.eulerAngles;
+			rb.rotation = rot;
             m_rotationCooldownTimer = 0;
         }
         m_rotationCooldownTimer += Time.deltaTime;

@@ -308,9 +308,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1222736147530047199}
   - component: {fileID: 7501060355364896677}
-  - component: {fileID: 28600830}
-  - component: {fileID: 28600831}
-  - component: {fileID: 28600829}
+  - component: {fileID: 6806594847193985381}
+  - component: {fileID: 666773450606914306}
   m_Layer: 0
   m_Name: XR Rig
   m_TagString: Untagged
@@ -330,6 +329,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1222736146481532226}
+  - {fileID: 959532414034679094}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -352,8 +352,8 @@ MonoBehaviour:
   translationScaleFactor: 0.04
   rotationSnapAngle: 40
   rotationSnapCooldown: 0.35
-  rigidbody: {fileID: 28600830}
---- !u!54 &28600830
+  rb: {fileID: 6806594847193985381}
+--- !u!54 &6806594847193985381
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -369,21 +369,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!136 &28600831
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1222736147530047196}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &28600829
+--- !u!114 &666773450606914306
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -395,7 +381,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e8a26edc0d618245a3d504ce929f1a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collider: {fileID: 28600831}
+  colliderTransform: {fileID: 959532414034679094}
+  floor: {fileID: 1222736146481532226}
+  camTransform: {fileID: 1222736146739543428}
 --- !u!1 &1222736147747002730
 GameObject:
   m_ObjectHideFlags: 0
@@ -737,3 +725,48 @@ MonoBehaviour:
   m_TrackingType: 0
   m_UpdateType: 0
   m_UseRelativeTransform: 0
+--- !u!1 &6637528678606107797
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 959532414034679094}
+  - component: {fileID: 2648994340699519488}
+  m_Layer: 0
+  m_Name: Resizing Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &959532414034679094
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6637528678606107797}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1222736147530047199}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &2648994340699519488
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6637528678606107797}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
