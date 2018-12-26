@@ -342,10 +342,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2891ba8b747a2d409c1025dd71f1db1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thumbStickIDX: PrimaryThumbstick - X
-  thumbStickIDY: PrimaryThumbstick - Y
+  primaryStickIDX: PrimaryThumbstick - X
+  primaryStickIDY: PrimaryThumbstick - Y
+  secondaryStickIDX: SecondaryThumbStick - X
   leftHand: {fileID: 1222736147506641714}
   translationScaleFactor: 0.04
+  rotationSnapAngle: 30
+  rotationSnapTimer: 0.22
 --- !u!1 &1222736147747002730
 GameObject:
   m_ObjectHideFlags: 0
