@@ -352,6 +352,7 @@ MonoBehaviour:
   translationScaleFactor: 0.04
   rotationSnapAngle: 40
   rotationSnapCooldown: 0.35
+  rigidbody: {fileID: 28600830}
 --- !u!54 &28600830
 Rigidbody:
   m_ObjectHideFlags: 0
