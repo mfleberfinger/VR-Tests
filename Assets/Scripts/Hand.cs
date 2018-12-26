@@ -69,7 +69,7 @@ public class Hand : MonoBehaviour
     private void Update()
     {
         float rawInput = Input.GetAxisRaw(m_gripID);
-        if (rawInput < 1)
+        if (rawInput < 0.2f)
         {
             m_State = HandState.Empty;
         }

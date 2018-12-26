@@ -18,7 +18,7 @@ public class thumbstick : MonoBehaviour
     GameObject leftHand = null;
 	[Tooltip("Multiplier/coefficient to control player movement speed.")]
     [SerializeField]
-	private float translationScaleFactor = 0.04f;
+	private float translationScaleFactor = 0.0001f;
 	[Tooltip("Multiplier/coefficient to control player movement speed.")]
     [SerializeField]
 	private float rotationSnapAngle = 40f;
@@ -39,6 +39,8 @@ public class thumbstick : MonoBehaviour
 		// Translation
 		m_fwdInput = -Input.GetAxis(primaryStickIDY) * translationScaleFactor;
         m_sideInput = -Input.GetAxis(primaryStickIDX) * translationScaleFactor;
+        DebugMessenger.instance.SetDebugText(
+            string.Format("fwdInput: {0}\nsideInput{1}\n",m_fwdInput,m_sideInput));
 
 		// Rotation
 		m_fwd = leftHand.transform.forward;
