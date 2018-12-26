@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class consumePen : MonoBehaviour
 {
-    private int pensCompleted = 0;
-    private int fuckups = 0;
+    public int pensCompleted = 0;
+    public int fuckups = 0;
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Cap")
@@ -14,7 +14,8 @@ public class consumePen : MonoBehaviour
             Destroy(other.gameObject);
         } else if (other.gameObject.tag == "Pen")
         {
-            if (other.transform.childCount == 2)
+            Transform o = other.GetComponent<Transform>();
+            if (other.transform.parent != null)
                 ++fuckups;
             else
                 ++pensCompleted;
