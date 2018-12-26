@@ -21,33 +21,40 @@ public class thumbstick : MonoBehaviour
 	private float translationScaleFactor = 0.04f;
 	[Tooltip("Multiplier/coefficient to control player movement speed.")]
     [SerializeField]
-	private float rotationSnapAngle = 30f;
+	private float rotationSnapAngle = 40f;
+	[Tooltip("Time that the player must wait between rotation increments.")]
     [SerializeField]
-    private float rotationSnapTimer = .22f;
+    private float rotationSnapCooldown = .35f;
 
-    private float m_rotationCooldown = 0.0f;
+    private float m_rotationCooldownTimer = 0.0f;
+	private float m_fwdInput, m_sideInput;
+	private Vector3 m_fwd;
 
-    void Update()
+	private void Update()
+	{
+		m_fwdInput = -Input.GetAxis(primaryStickIDY) * translationScaleFactor;
+        m_sideInput = -Input.GetAxis(primaryStickIDX) * translationScaleFactor;
+		m_fwd = leftHand.transform.forward;
+        m_fwd.y = 0;
+        m_fwd.Normalize();
+	}
+
+	void FixedUpdate()
     {
 		// Translation
-        float fwdInput = -Input.GetAxis(primaryStickIDY) * translationScaleFactor;
-        float sideInput = -Input.GetAxis(primaryStickIDX) * translationScaleFactor;
         Vector3 thisMove = new Vector3(0, 0, 0);
-        Vector3 fwd = leftHand.transform.forward;
-        fwd.y = 0;
-        fwd.Normalize();
-        Vector3 right = Vector3.Cross(fwd, new Vector3(0, 1, 0));
-        thisMove += fwdInput * fwd;
-        thisMove += sideInput * right;
+        Vector3 right = Vector3.Cross(m_fwd, new Vector3(0, 1, 0));
+        thisMove += m_fwdInput * m_fwd;
+        thisMove += m_sideInput * right;
         transform.position += thisMove;
 
         // Rotation
         float rotInput = Input.GetAxis(secondaryStickIDX);
-        if (Mathf.Abs(rotInput) > .5f && m_rotationCooldown > rotationSnapTimer)
+        if (Mathf.Abs(rotInput) > .5f && m_rotationCooldownTimer > rotationSnapCooldown)
         {
-            transform.Rotate(Vector3.up, Mathf.Sign(rotInput)*rotationSnapAngle);
-            m_rotationCooldown = 0;
+            transform.Rotate(Vector3.up, Mathf.Sign(rotInput) * rotationSnapAngle);
+            m_rotationCooldownTimer = 0;
         }
-        m_rotationCooldown += Time.deltaTime;
+        m_rotationCooldownTimer += Time.deltaTime;
     }
 }
