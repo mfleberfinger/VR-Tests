@@ -5,8 +5,7 @@ using UnityEngine;
 public class PenCap : MonoBehaviour
 {
     private enum PenStates { Bald, Capped };
-    PenStates State = PenStates.Bald;
-    private bool held = false;
+    PenStates State = PenStates.Bald;;
     // Start is called before the first frame update
     void Start() { }
 
