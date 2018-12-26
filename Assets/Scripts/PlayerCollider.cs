@@ -25,7 +25,8 @@ public class PlayerCollider : MonoBehaviour
 		// Place the collider's center halfway between the real-world floor
 		// and the player's headset.
 		float yPos = (camTransform.localPosition.y - floor.localPosition.y) * 0.5f;
-		colliderTransform.localPosition = new Vector3(0f, yPos);
+		colliderTransform.localPosition = new Vector3(camTransform.localPosition.x,
+			yPos, camTransform.localPosition.z);
 
 		// Scale the collider's height to be equal to the current distance
 		// between the floor and the headset unless that size is smaller than

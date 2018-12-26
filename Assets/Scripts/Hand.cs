@@ -60,6 +60,9 @@ public class Hand : MonoBehaviour
 			m_heldObject = other.transform;
 			// Have the grabbed object stop responding to physics.
 			other.transform.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+			// Prevent the object from colliding with the player by setting the
+			// object's layer to the "PlayerColliders" layer.
+			m_heldObject.gameObject.layer = 9;
 		}
 	}
 
@@ -82,18 +85,6 @@ public class Hand : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		//_____________________TODO: Remove test code._____________________
-		if (m_gripID == "Grip - Right")
-		{
-			m_debugText =	"\nR Axis: " + Input.GetAxis(m_gripID).ToString();
-			m_debugText +=	"\nR Pos: " + transform.position.ToString();
-			m_debugText +=	"\nR Vel: " + m_velocity.ToString();
-			m_debugText +=	"\nDelta:" + Time.fixedDeltaTime.ToString();
-
-			DebugMessenger.instance.SetDebugText(m_debugText);
-		}
-		//_____________________TODO: Remove test code._____________________
-
 		//Calculate velocity and update data for the moving average.
 		m_velocity = (transform.position - m_lastPosition) / Time.fixedDeltaTime;
 		m_sumOfVelocities += m_velocity;
@@ -116,6 +107,8 @@ public class Hand : MonoBehaviour
 					//Apply the hand's recent average velocity to the object.
 					rigidbody.velocity =
 						(m_sumOfVelocities / m_TicksToAverage) * m_ThrowMultiplier;
+					//Allow the object to collide with the player again.
+					m_heldObject.gameObject.layer = 0;
 				}
 
 				m_heldObject = null;
