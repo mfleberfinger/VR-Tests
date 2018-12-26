@@ -333,9 +333,9 @@ InputManager:
     positiveButton: 
     altNegativeButton: 
     altPositiveButton: 
-    gravity: 1000
+    gravity: 10000
     dead: 0.05
-    sensitivity: 1000
+    sensitivity: 10000
     snap: 0
     invert: 0
     type: 2
@@ -349,11 +349,27 @@ InputManager:
     positiveButton: 
     altNegativeButton: 
     altPositiveButton: 
-    gravity: 1000
+    gravity: 10000
     dead: 0.05
-    sensitivity: 1000
+    sensitivity: 10000
     snap: 0
     invert: 0
     type: 2
     axis: 1
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: SecondaryThumbStick - X
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 10000
+    dead: 0.05
+    sensitivity: 10000
+    snap: 0
+    invert: 0
+    type: 2
+    axis: 3
     joyNum: 0
