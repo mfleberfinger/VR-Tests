@@ -8,6 +8,8 @@ TagManager:
   - Pen
   - HouseStructure
   - Breakable
+  - Can
+
   layers:
   - Default
   - TransparentFX
