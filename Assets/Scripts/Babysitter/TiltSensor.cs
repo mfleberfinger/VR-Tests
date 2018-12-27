@@ -2,63 +2,55 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Penalizes the player if the thing this is attached to translates or rotates
+// too far.
 public class TiltSensor : MonoBehaviour
 {
 	[Tooltip("Player is penalized if the object rotates further than this many" +
 		" degrees on any axis.")]
 	[SerializeField]
 	private float maxRotation = 45f;
+	[Tooltip("Player is penalized if the object translates further than this.")]
+	[SerializeField]
+	private float maxTranslation = 0.5f;
 	[Tooltip("Amount of money lost by the player if this breaks.")]
 	[SerializeField]
 	private float priceTag = 1f;
 
 	// The starting rotation of the object to which this script is attached.
-	private float m_correctX, m_correctY, m_correctZ;
+	private float m_correctXRot, m_correctYRot, m_correctZRot;
+	private Vector3 m_correctPosition;
 	// Has this item been disturbed too much?
 	private bool m_fallen;
-	//// Describes whether we assume that this item stopped moving after the initial
-	//// scene load and physics settling?
-	//private bool m_settled;
-	//private float m_settleTimer;
-	
-	// Net rotation on each axis since the start of play.
-	float rotX, rotY, rotZ;
+
 
     void Start()
     {
-		//m_settleTimer = 0f;
-		//m_settled = false;
-		rotX = rotY = rotZ;
+		if (maxRotation > 90)
+			Debug.LogError("MaxRotation must be between 0 and 90");
+
 		m_fallen = false;
-        m_correctX = transform.rotation.eulerAngles.x;
-		m_correctY = transform.rotation.eulerAngles.y;
-		m_correctZ = transform.rotation.eulerAngles.z;
+        m_correctXRot = transform.rotation.eulerAngles.x;
+		m_correctYRot = transform.rotation.eulerAngles.y;
+		m_correctZRot = transform.rotation.eulerAngles.z;
+		m_correctPosition = transform.position;
     }
 
     void Update()
     {
-		//// Give the object a moment to stop moving after the scene loads.
-		//if (!m_settled)
-		//{
-		//	m_settleTimer += Time.deltaTime;
-
-		//	if (m_settleTimer > 2f)
-		//		m_settled = true;
-		//}
-		
-		////TODO: remove test code
-		//if (!m_settled && gameObject.name.Contains("RFAIPP_Lamp"))
-		//{
-		//	Debug.Log("angle: " + transform.rotation.eulerAngles.ToString());
-		//	if(m_settled)
-		//		Debug.Log("Settled");
-		//}
-
-		if (!m_fallen/* && m_settled*/)
+		if (!m_fallen)
 		{
+			// Calculate the difference between the starting rotation and the
+			// current rotation on each axis.
+			float deltaX = 
+				Mathf.Abs(Mathf.DeltaAngle(m_correctXRot, transform.rotation.eulerAngles.x));
+			float deltaY =
+				Mathf.Abs(Mathf.DeltaAngle(m_correctYRot, transform.rotation.eulerAngles.y));
+			float deltaZ =
+				Mathf.Abs(Mathf.DeltaAngle(m_correctZRot, transform.rotation.eulerAngles.z));
 			
-
-			if (true)
+			if(deltaX > maxRotation || deltaY > maxRotation || deltaZ > maxRotation
+				|| Vector3.Magnitude(transform.position - m_correctPosition) > maxTranslation)
 			{
 				//TODO: Take points and play a sound (glass breaking? laughing child?).
 				Debug.Log("Item broken: " + gameObject.name + " " + "Cost: $" + priceTag);
@@ -66,6 +58,4 @@ public class TiltSensor : MonoBehaviour
 			}
 		}
     }
-
-	
 }

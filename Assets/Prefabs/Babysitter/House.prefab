@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5010483384634701763}
   m_Layer: 0
   m_Name: Ceiling
-  m_TagString: Untagged
+  m_TagString: HouseStructure
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 6168713282277531514}
   m_Layer: 0
   m_Name: North Wall
-  m_TagString: Untagged
+  m_TagString: HouseStructure
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -197,7 +197,7 @@ GameObject:
   - component: {fileID: 6168713282285726928}
   m_Layer: 0
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: HouseStructure
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -289,7 +289,7 @@ GameObject:
   - component: {fileID: 6168713282389485935}
   m_Layer: 0
   m_Name: East Wall
-  m_TagString: Untagged
+  m_TagString: HouseStructure
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -423,7 +423,7 @@ GameObject:
   - component: {fileID: 6168713282596670519}
   m_Layer: 0
   m_Name: Internal Wall (4)
-  m_TagString: Untagged
+  m_TagString: HouseStructure
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -514,7 +514,7 @@ GameObject:
   - component: {fileID: 6168713282790459053}
   m_Layer: 0
   m_Name: Internal Wall (3)
-  m_TagString: Untagged
+  m_TagString: HouseStructure
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -605,7 +605,7 @@ GameObject:
   - component: {fileID: 6168713283160329422}
   m_Layer: 0
   m_Name: Internal Wall (6)
-  m_TagString: Untagged
+  m_TagString: HouseStructure
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -696,7 +696,7 @@ GameObject:
   - component: {fileID: 6168713283221826625}
   m_Layer: 0
   m_Name: Internal Wall
-  m_TagString: Untagged
+  m_TagString: HouseStructure
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -787,7 +787,7 @@ GameObject:
   - component: {fileID: 6168713283339430567}
   m_Layer: 0
   m_Name: West Wall
-  m_TagString: Untagged
+  m_TagString: HouseStructure
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -878,7 +878,7 @@ GameObject:
   - component: {fileID: 6168713283729404489}
   m_Layer: 0
   m_Name: Internal Wall (2)
-  m_TagString: Untagged
+  m_TagString: HouseStructure
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -969,7 +969,7 @@ GameObject:
   - component: {fileID: 6168713283812724212}
   m_Layer: 0
   m_Name: South Wall
-  m_TagString: Untagged
+  m_TagString: HouseStructure
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1060,7 +1060,7 @@ GameObject:
   - component: {fileID: 6168713284240989057}
   m_Layer: 0
   m_Name: Internal Wall (5)
-  m_TagString: Untagged
+  m_TagString: HouseStructure
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1151,7 +1151,7 @@ GameObject:
   - component: {fileID: 6168713284245503871}
   m_Layer: 0
   m_Name: Internal Wall (1)
-  m_TagString: Untagged
+  m_TagString: HouseStructure
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
