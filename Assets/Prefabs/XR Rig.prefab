@@ -492,7 +492,7 @@ MonoBehaviour:
   spawnBlock: {fileID: 5505576329034965082, guid: b48947348a20f12409fa77372148c369,
     type: 3}
   throwMultiplier: 1.4
-  throwSamples: 8
+  throwSamples: 6
   releaseParam: 0.36
 --- !u!1 &1222736148008938461
 GameObject:

@@ -18,7 +18,7 @@ public class Hand : MonoBehaviour
 
 	[Tooltip ("Number of data points to use for the velocity moving average.")]
 	[SerializeField]
-	private int throwSamples = 8; //default value determined empirically
+	private int throwSamples = 6; //default value determined empirically
 
 	[Tooltip ("Grip bound value between held and released states")]
 	[SerializeField]
