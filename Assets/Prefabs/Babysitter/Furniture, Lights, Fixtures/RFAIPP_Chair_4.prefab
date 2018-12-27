@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3977710848050101131}
   m_Layer: 0
   m_Name: RFAIPP_Chair_4
-  m_TagString: Untagged
+  m_TagString: Breakable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

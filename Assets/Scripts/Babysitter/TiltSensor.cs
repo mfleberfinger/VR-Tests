@@ -20,11 +20,19 @@ public class TiltSensor : MonoBehaviour
 	// The starting rotation of the object to which this script is attached.
 	private float m_correctXRot, m_correctYRot, m_correctZRot;
 	private Vector3 m_correctPosition;
-	// Has this item been disturbed too much?
-	private bool m_fallen;
 
+	/// <summary>
+	/// True if the object has moved beyond the maximum allowed translation or
+	/// rotation.
+	/// </summary>
+	public bool m_fallen { get; private set; }
 
-    void Start()
+	private void Awake()
+	{
+		Child.AddTiltSensor(this);
+	}
+
+	private void Start()
     {
 		if (maxRotation > 90)
 			Debug.LogError("MaxRotation must be between 0 and 90");
@@ -36,7 +44,7 @@ public class TiltSensor : MonoBehaviour
 		m_correctPosition = transform.position;
     }
 
-    void Update()
+    private void Update()
     {
 		if (!m_fallen)
 		{

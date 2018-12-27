@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 33206921671082963}
   m_Layer: 0
   m_Name: RFAIPP_Fridge
-  m_TagString: Untagged
+  m_TagString: Breakable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

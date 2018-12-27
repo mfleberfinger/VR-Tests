@@ -9,7 +9,7 @@ public class PaintingDropper : MonoBehaviour
 {
 	[Tooltip("This painting's rigidbody.")]
 	[SerializeField]
-	private Rigidbody rb;
+	private Rigidbody rb = null;
 
 	private Vector3 initialPosition;
 
