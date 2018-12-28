@@ -14,6 +14,14 @@ public class Child : MonoBehaviour
 	[SerializeField]
 	private float stunTime = 10f;
 
+	[Tooltip("Child's SoundManager script component.")]
+	[SerializeField]
+	private SoundManager soundManager = null;
+
+	[Tooltip("Child's mocking laughter audio clip.")]
+	[SerializeField]
+	private AudioClip laugh = null;
+
 	private static Queue<TiltSensor> m_tiltSensors;
 
 	private NavMeshAgent m_agent;
@@ -68,8 +76,14 @@ public class Child : MonoBehaviour
 	private void OnTriggerEnter(Collider other)
 	{
 		if (other.tag == "Breakable")
+		{
+			// Play sound if tipping something that was previously undamaged.
+			if(!other.GetComponent<TiltSensor>().m_fallen)
+				soundManager.PlaySingle(laugh);
+
 			other.GetComponent<Rigidbody>().
 				AddForce(Random.insideUnitSphere * forceMagnitude, ForceMode.Impulse);
+		}
 	}
 
 	/// <summary>
