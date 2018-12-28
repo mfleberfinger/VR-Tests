@@ -135,7 +135,15 @@ MonoBehaviour:
   forceMagnitude: 10
   stunTime: 5
   soundManager: {fileID: 6823408586114290276}
-  laugh: {fileID: 8300000, guid: 39a4fe45f8290f24595d2c9bdf54412c, type: 3}
+  hitSound: {fileID: 8300000, guid: 8d8440c23b402ac4b80d1f175406b05c, type: 3}
+  breakSounds:
+  - {fileID: 8300000, guid: 58ba8eedd1e15f44695e6ddec913dfd5, type: 3}
+  - {fileID: 8300000, guid: 22769e9d31fb20440bf0eef4981cdf04, type: 3}
+  - {fileID: 8300000, guid: f9315db1298b91e499119fc188fae308, type: 3}
+  - {fileID: 8300000, guid: 9811109556096384ba0bcd48c45635b7, type: 3}
+  - {fileID: 8300000, guid: b9c786071dd68174e87987fa36c3869b, type: 3}
+  - {fileID: 8300000, guid: ba091096eeaf1b94cac306d3c008681a, type: 3}
+  - {fileID: 8300000, guid: 39a4fe45f8290f24595d2c9bdf54412c, type: 3}
 --- !u!54 &2504258739502047556
 Rigidbody:
   m_ObjectHideFlags: 0

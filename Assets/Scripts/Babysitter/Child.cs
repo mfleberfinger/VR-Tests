@@ -18,9 +18,12 @@ public class Child : MonoBehaviour
 	[SerializeField]
 	private SoundManager soundManager = null;
 
-	[Tooltip("Child's mocking laughter audio clip.")]
+	[Tooltip("Sound to play when hit by the player.")]
 	[SerializeField]
-	private AudioClip laugh = null;
+	private AudioClip hitSound = null;
+
+	[Tooltip("Clips to choose from to play when something breaks.")]
+	public AudioClip[] breakSounds;
 
 	private static Queue<TiltSensor> m_tiltSensors;
 
@@ -79,7 +82,7 @@ public class Child : MonoBehaviour
 		{
 			// Play sound if tipping something that was previously undamaged.
 			if(!other.GetComponent<TiltSensor>().m_fallen)
-				soundManager.PlaySingle(laugh);
+				soundManager.RandomizeSfx(breakSounds);
 
 			other.GetComponent<Rigidbody>().
 				AddForce(Random.insideUnitSphere * forceMagnitude, ForceMode.Impulse);
@@ -93,6 +96,7 @@ public class Child : MonoBehaviour
 	/// </summary>
 	public void Hit()
 	{
+		soundManager.PlaySingle(hitSound);
 		m_agent.isStopped = true;
 		m_stunCountdown = stunTime;
 	}
