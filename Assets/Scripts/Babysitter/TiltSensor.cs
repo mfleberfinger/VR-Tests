@@ -19,7 +19,12 @@ public class TiltSensor : MonoBehaviour
 
 	// The starting rotation of the object to which this script is attached.
 	private float m_correctXRot, m_correctYRot, m_correctZRot;
+	
+	// The starting position of the object to which this script is attached.
 	private Vector3 m_correctPosition;
+
+	// Used to deduct pay for broken items.
+	private ScoreKeeper score;
 
 	/// <summary>
 	/// True if the object has moved beyond the maximum allowed translation or
@@ -34,6 +39,14 @@ public class TiltSensor : MonoBehaviour
 
 	private void Start()
     {
+
+		GameObject scoreGO = GameObject.FindGameObjectWithTag("GameController");
+		
+		if (scoreGO != null)
+			score = scoreGO.GetComponent<ScoreKeeper>();
+		else
+			Debug.LogError("No GameObject with the tag \"GameController\" could be found.");
+
 		if (maxRotation > 90)
 			Debug.LogError("MaxRotation must be between 0 and 90");
 
@@ -62,6 +75,7 @@ public class TiltSensor : MonoBehaviour
 			{
 				//TODO: Take points and play a sound (glass breaking? laughing child?).
 				Debug.Log("Item broken: " + gameObject.name + " " + "Cost: $" + priceTag);
+				score.DockPay(priceTag);
 				m_fallen = true;
 			}
 		}

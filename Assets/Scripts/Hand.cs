@@ -39,9 +39,6 @@ public class Hand : MonoBehaviour
 	private Vector3 m_sumOfVelocities;
 	private Queue<Vector3> m_velocities;
 
-	//TODO: Remove testing code.
-	string m_debugText;
-
 	private void Start()
 	{
 		m_velocities = new Queue<Vector3>();

@@ -9,7 +9,7 @@ TagManager:
   - HouseStructure
   - Breakable
   - Can
-
+  - Watch
   layers:
   - Default
   - TransparentFX
