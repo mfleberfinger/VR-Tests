@@ -18,4 +18,24 @@ public class Watch : MonoBehaviour
 		if (mode == WatchMode.clock)
 			displayText.text = DateTime.Now.ToLocalTime().ToShortTimeString();
 	}
+
+	/// <summary>
+	/// Set the watch mode. It should be set to "Manual" to manual to set the
+	/// display directly from another script.
+	/// </summary>
+	/// <param name="mode">The WatchMode enum member describing the mode
+	/// to use.</param>
+	public void SetMode(WatchMode mode)
+	{
+		this.mode = mode;
+	}
+
+	/// <summary>
+	/// Set the text displayed on the watch.
+	/// </summary>
+	/// <param name="displayText">The text to display on the next Update() call.</param>
+	public void SetText(string displayText)
+	{
+		this.displayText.text = displayText;
+	}
 }
