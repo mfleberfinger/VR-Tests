@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 362839349}
   - component: {fileID: 362839348}
   m_Layer: 0
-  m_Name: Plane (1)
+  m_Name: Wall R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -217,14 +217,14 @@ GameObject:
   - component: {fileID: 617940474}
   - component: {fileID: 617940473}
   m_Layer: 0
-  m_Name: Cylinder
+  m_Name: Spawn Toob
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!136 &617940473
-CapsuleCollider:
+--- !u!64 &617940473
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -233,10 +233,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &617940474
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -295,7 +295,7 @@ Transform:
   m_Children:
   - {fileID: 1813201503}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 65, y: 0, z: 0}
 --- !u!1 &773762813
 GameObject:
@@ -310,7 +310,7 @@ GameObject:
   - component: {fileID: 773762815}
   - component: {fileID: 773762814}
   m_Layer: 0
-  m_Name: Cylinder (1)
+  m_Name: Green Toob
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -327,7 +327,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &773762815
@@ -388,7 +388,7 @@ Transform:
   m_Children:
   - {fileID: 886331533}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 65, y: 0, z: 0}
 --- !u!1 &816366255
 GameObject:
@@ -405,7 +405,7 @@ GameObject:
   - component: {fileID: 816366260}
   - component: {fileID: 816366261}
   m_Layer: 0
-  m_Name: Cylinder
+  m_Name: Blue Cap
   m_TagString: Blue
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -435,10 +435,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.3683078
-  m_Height: 3.9816124
+  m_Radius: 0.24316233
+  m_Height: 2.4340255
   m_Direction: 1
-  m_Center: {x: 0.002241225, y: -0.34080607, z: -0.0000010317638}
+  m_Center: {x: 0.0023144663, y: -0.5246498, z: -0.0000010129072}
 --- !u!23 &816366258
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -525,7 +525,7 @@ GameObject:
   - component: {fileID: 886331537}
   - component: {fileID: 886331538}
   m_Layer: 0
-  m_Name: Cylinder
+  m_Name: Green Cap
   m_TagString: Green
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -555,10 +555,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.3683078
-  m_Height: 3.9816124
+  m_Radius: 0.2143767
+  m_Height: 2.9816244
   m_Direction: 1
-  m_Center: {x: 0.002241225, y: -0.34080607, z: -0.0000010317638}
+  m_Center: {x: -0.018422125, y: -1.2258929, z: -0.0000005302822}
 --- !u!23 &886331535
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -650,12 +650,12 @@ PrefabInstance:
     - target: {fileID: 5616733927687936796, guid: e7deb247e33101b4d90413a1d22308bd,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.054
+      value: 1.072
       objectReference: {fileID: 0}
     - target: {fileID: 5616733927687936796, guid: e7deb247e33101b4d90413a1d22308bd,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.429
+      value: 1.467
       objectReference: {fileID: 0}
     - target: {fileID: 5616733927687936796, guid: e7deb247e33101b4d90413a1d22308bd,
         type: 3}
@@ -680,7 +680,7 @@ PrefabInstance:
     - target: {fileID: 5616733927687936796, guid: e7deb247e33101b4d90413a1d22308bd,
         type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5616733927687936796, guid: e7deb247e33101b4d90413a1d22308bd,
         type: 3}
@@ -697,11 +697,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5616733927687936800, guid: e7deb247e33101b4d90413a1d22308bd,
-        type: 3}
-      propertyPath: m_UseGravity
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7deb247e33101b4d90413a1d22308bd, type: 3}
 --- !u!1 &927958039
@@ -717,7 +712,7 @@ GameObject:
   - component: {fileID: 927958041}
   - component: {fileID: 927958040}
   m_Layer: 0
-  m_Name: Plane (3)
+  m_Name: Wall B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -809,7 +804,7 @@ GameObject:
   - component: {fileID: 941423274}
   - component: {fileID: 941423273}
   m_Layer: 0
-  m_Name: Plane (2)
+  m_Name: Wall F
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -901,7 +896,7 @@ GameObject:
   - component: {fileID: 982245833}
   - component: {fileID: 982245832}
   m_Layer: 0
-  m_Name: Plane (4)
+  m_Name: Wall L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -993,7 +988,7 @@ GameObject:
   - component: {fileID: 1306791100}
   - component: {fileID: 1306791099}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1085,7 +1080,7 @@ GameObject:
   - component: {fileID: 1514904447}
   - component: {fileID: 1514904446}
   m_Layer: 0
-  m_Name: Cylinder (2)
+  m_Name: Red Toob
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1102,7 +1097,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &1514904447
@@ -1163,7 +1158,7 @@ Transform:
   m_Children:
   - {fileID: 1708044647}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 65, y: 90, z: 0}
 --- !u!1 &1697955568
 GameObject:
@@ -1178,7 +1173,7 @@ GameObject:
   - component: {fileID: 1697955570}
   - component: {fileID: 1697955569}
   m_Layer: 0
-  m_Name: Cylinder (3)
+  m_Name: Blue Toob
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1195,7 +1190,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &1697955570
@@ -1256,7 +1251,7 @@ Transform:
   m_Children:
   - {fileID: 816366256}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 65, y: -90, z: 0}
 --- !u!1 &1708044646
 GameObject:
@@ -1273,7 +1268,7 @@ GameObject:
   - component: {fileID: 1708044651}
   - component: {fileID: 1708044652}
   m_Layer: 0
-  m_Name: Cylinder
+  m_Name: Red Cap
   m_TagString: Red
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1303,10 +1298,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.3683078
-  m_Height: 3.9816124
+  m_Radius: 0.23119535
+  m_Height: 2.2680292
   m_Direction: 1
-  m_Center: {x: 0.002241225, y: -0.34080607, z: -0.0000010317638}
+  m_Center: {x: -0.009578466, y: -0.7850246, z: 0.00000061761915}
 --- !u!23 &1708044649
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1468,7 +1463,7 @@ GameObject:
   - component: {fileID: 1813201508}
   - component: {fileID: 1813201507}
   m_Layer: 0
-  m_Name: Cylinder
+  m_Name: Spawn Cap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

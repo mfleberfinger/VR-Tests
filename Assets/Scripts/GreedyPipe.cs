@@ -4,15 +4,31 @@ using UnityEngine;
 
 public class GreedyPipe : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.gameObject);
+        Debug.Log(other.gameObject.tag);
         
+        if (other.gameObject.tag == transform.tag) 
+        {
+            Transform mail = other.gameObject.transform.parent;
+            
+            mail.parent = null;
+            mail.GetComponent<Rigidbody>().isKinematic = false;
+            other.enabled = false;
+            mail.GetComponent<Collider>().enabled = false;
+            mail.GetComponent<Rigidbody>().useGravity = false;
+            mail.GetComponent<Rigidbody>().freezeRotation = true;
+            mail.rotation = transform.rotation;
+            mail.GetComponent<Rigidbody>().velocity = transform.up * 8f;
+            StartCoroutine(DieAlone(mail));
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator DieAlone(Transform mail)
     {
-        
+        yield return new WaitForSeconds(1f);
+        Destroy(mail.gameObject);
     }
+
 }

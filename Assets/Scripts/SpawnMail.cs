@@ -20,7 +20,7 @@ public class SpawnMail : MonoBehaviour
 
     IEnumerator SpawnCheckSpawn()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(.5f);
         if (m_empty)
         {
             Instantiate(m_Mail, transform.position, transform.rotation);

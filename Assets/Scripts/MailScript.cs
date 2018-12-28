@@ -11,6 +11,7 @@ public class MailScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        transform.GetComponent<Rigidbody>().isKinematic = true;
         Random.InitState(transform.GetInstanceID());
         GameObject kid = transform.GetChild(0).gameObject;
 
@@ -29,6 +30,5 @@ public class MailScript : MonoBehaviour
                 kid.tag = "Red";
                 break;
         }
-        
     }
 }
