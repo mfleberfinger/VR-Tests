@@ -10,6 +10,10 @@ TagManager:
   - Breakable
   - Can
   - Watch
+  - Green
+  - Red
+  - Blue
+
   layers:
   - Default
   - TransparentFX
