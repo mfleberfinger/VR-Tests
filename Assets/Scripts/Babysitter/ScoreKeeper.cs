@@ -36,7 +36,7 @@ public class ScoreKeeper : MonoBehaviour
 	{
 		timeRemaining -= Time.deltaTime;
 
-		watch.SetText(string.Format("Time: {0:n0}\nPay: {1:c2}",
+		watch.SetText(string.Format("Time: {0:n2}\nPay: {1:c2}",
 			timeRemaining, money));
 	}
 

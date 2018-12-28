@@ -131,6 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceMagnitude: 10
+  stunTime: 5
 --- !u!54 &2504258739502047556
 Rigidbody:
   m_ObjectHideFlags: 0
