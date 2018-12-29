@@ -16,10 +16,18 @@ public class ScoreKeeper : MonoBehaviour
 	private Watch watch;
 	
 	private float money, timeRemaining;
-	
+	private Overlord overlord;
 
 	private void Start()
 	{
+		GameObject overlordGO = GameObject.FindGameObjectWithTag("Overlord");
+
+		if(overlordGO == null)
+			Debug.LogError("The Overlord script's game object could not be found." +
+				" Add it to the scene and tag it, you dunce.");
+		else
+			overlord = overlordGO.GetComponent<Overlord>();
+
 		GameObject watchGO = GameObject.FindGameObjectWithTag("Watch");
 		
 		if (watchGO != null)
@@ -34,6 +42,11 @@ public class ScoreKeeper : MonoBehaviour
 
 	private void Update()
 	{
+		if(timeRemaining <= 0)
+		{
+			overlord.AddMoney(money);
+			overlord.ReturnToOverWorld();
+		}
 		timeRemaining -= Time.deltaTime;
 
 		watch.SetText(string.Format("Time: {0:n2}\nPay: {1:c2}",
