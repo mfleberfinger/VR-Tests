@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Babysitter.unity
     guid: a4dfa4bf3fe9435489240068484d288b
+  - enabled: 1
+    path: Assets/Scenes/Barista.unity
+    guid: 3d75c654eeb247f47a3b58fc941294ba
   m_configObjects: {}
