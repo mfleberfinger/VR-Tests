@@ -11,6 +11,10 @@ TagManager:
   - Can
   - Watch
   - coffee
+  - Green
+  - Red
+  - Blue
+
   layers:
   - Default
   - TransparentFX

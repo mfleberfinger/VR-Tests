@@ -8,7 +8,22 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: bb31f74aa70a6f64eba6eeb25aaee78f
+  - enabled: 1
+    path: Assets/Scenes/HUBAHUBA.unity
+    guid: 3fa627ea5d40da14f9a01c04ad1ad107
+  - enabled: 1
+    path: Assets/Scenes/MaleRoom.unity
+    guid: 4ff2cca58e6b82244a98f40b1552be72
+  - enabled: 1
+    path: Assets/Scenes/PenFactory.unity
+    guid: fcbe7aa1fb653324caf4c3b881d0e6a0
+  - enabled: 1
+    path: Assets/Scenes/StockJock.unity
+    guid: 07d836c03463cd24582dd8af2b98a5b8
+  - enabled: 1
+    path: Assets/Scenes/Babysitter.unity
+    guid: a4dfa4bf3fe9435489240068484d288b
   m_configObjects: {}

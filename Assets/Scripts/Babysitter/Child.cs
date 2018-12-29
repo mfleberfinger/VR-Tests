@@ -22,45 +22,79 @@ public class Child : MonoBehaviour
 	[SerializeField]
 	private AudioClip hitSound = null;
 
+	[Tooltip("NavMesh Agent for this character.")]
+	[SerializeField]
+	private NavMeshAgent agent = null;
+
+	[Tooltip("Animator for this character.")]
+	[SerializeField]
+	private Animator anim = null;
+
 	[Tooltip("Clips to choose from to play when something breaks.")]
 	public AudioClip[] breakSounds;
 
 	private static Queue<TiltSensor> m_tiltSensors;
-
-	private NavMeshAgent m_agent;
 	private float m_stunCountdown;
+	//Transform values from the last frame. Used for shoddy animation.
+	private Vector3 m_LastPosition;
+	private Vector3 m_LastRotation;
 
 	private void Start()
 	{
 		if (m_tiltSensors == null)
 			m_tiltSensors = new Queue<TiltSensor>();
 
-		m_agent = GetComponent<NavMeshAgent>();
-
 		// Initialize the destination value of NavMesh to allow us to check it
 		// properly in the if statement in Update().
-		m_agent.destination = transform.position;
+		agent.destination = transform.position;
 		m_stunCountdown = 0f;
+		m_LastPosition = transform.position;
+		m_LastRotation = transform.rotation.eulerAngles;
 	}
 
 	private void Update()
 	{
+		if (Vector3.Magnitude(m_LastPosition - transform.position) > float.Epsilon)
+			anim.SetFloat("Speed", 1f);
+		else
+			anim.SetFloat("Speed", 0f);
+
+		if (Vector3.Magnitude(m_LastRotation - transform.rotation.eulerAngles) > 0.1f)
+		{
+			if (Mathf.Sign(Vector3.SignedAngle(transform.rotation.eulerAngles, m_LastRotation, Vector3.up)) < 0)
+				anim.SetFloat("Turn", -1f);
+			else
+				anim.SetFloat("Turn", 1f);
+		}
+		else
+			anim.SetFloat("Turn", 0f);
+
 		// TiltSensors will identify themselves to Child. Choose the next
 		// one and pathfind to it. Once it is broken, choose the next one
 		// available. Repeat until out of things to break.
-		if (Mathf.Approximately(transform.position.x, m_agent.destination.x) &&
-			Mathf.Approximately(transform.position.z, m_agent.destination.z) &&
+		if (Mathf.Approximately(transform.position.x, agent.destination.x) &&
+			Mathf.Approximately(transform.position.z, agent.destination.z) &&
 			m_tiltSensors.Count > 0 && m_stunCountdown <= 0)
 		{
-			m_agent.isStopped = false;
-			m_agent.destination = m_tiltSensors.Dequeue().transform.position;
+			agent.isStopped = false;
+			anim.SetBool("Crouch", false);
+			agent.destination = m_tiltSensors.Dequeue().transform.position;
 		}
 		else if (m_tiltSensors.Count == 0)
-			m_agent.isStopped = false;
+		{
+			agent.isStopped = false;
+			anim.SetBool("Crouch", false);
+		}
 		else if (m_stunCountdown > 0)
 			m_stunCountdown -= Time.deltaTime;
 		else if (m_stunCountdown <= 0)
-			m_agent.isStopped = false;
+		{
+			agent.isStopped = false;
+			anim.SetBool("Crouch", false);
+		}
+		
+		m_LastPosition = transform.position;
+		m_LastRotation = transform.rotation.eulerAngles;
 	}
 
 	/// <summary>
@@ -97,7 +131,8 @@ public class Child : MonoBehaviour
 	public void Hit()
 	{
 		soundManager.PlaySingle(hitSound);
-		m_agent.isStopped = true;
+		agent.isStopped = true;
 		m_stunCountdown = stunTime;
+		anim.SetBool("Crouch", true);
 	}
 }
