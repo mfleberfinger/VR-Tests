@@ -27,6 +27,8 @@ public class CoffeeSlave : MonoBehaviour
     //part of spawn init
     public void startTrek()
     {
+        linePosition = m_List.Count;
+        m_List.Enqueue(this);
         setDest(nextLinePos());
         m_State = CoffeeState.navigating;
     }
@@ -38,7 +40,8 @@ public class CoffeeSlave : MonoBehaviour
         float fwd = Vector3.Dot(dir, transform.forward)*
             (agent.destination != finishLine.transform.position ? .7f : 1.0f);
         fwd = fwd < 0 ? 0 : fwd;
-        float turn = Vector3.Dot(dir, transform.right);
+        float turn = Vector3.Dot(dir, transform.right)*1.5f;
+        turn = Mathf.Abs(turn) > 1 ? Mathf.Sign(turn) * 1f : turn;
         m_Animator.SetFloat("Speed", fwd);
         m_Animator.SetFloat("Turn", turn);
     }
@@ -46,7 +49,7 @@ public class CoffeeSlave : MonoBehaviour
     public Vector3 nextLinePos()
     {
         return coffeeLine.transform.position +
-            coffeeLine.transform.forward * linePosition * 1.5f;
+            coffeeLine.transform.forward * linePosition * 1.1f;
     }
 
     // Start is called before the first frame update
@@ -54,8 +57,6 @@ public class CoffeeSlave : MonoBehaviour
     {
         agent.updatePosition = false;
         agent.updateRotation = false;
-        linePosition = m_List.Count;
-        m_List.Enqueue(this);
         m_Animator = GetComponent<Animator>();
         if (m_Animator == null)
             throw new System.Exception();
@@ -63,7 +64,7 @@ public class CoffeeSlave : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (linePosition == 0 && other.tag == "coffee")
+        if (linePosition == 0 && other.gameObject.tag == "coffee")
         {
             Destroy(other.gameObject);
             setDest(finishLine.transform.position);
@@ -89,7 +90,7 @@ public class CoffeeSlave : MonoBehaviour
                 break;
             case CoffeeState.navigating:
                 animateToNode();
-                if (Vector3.Magnitude(agent.destination - transform.position) < 0.8)
+                if (Vector3.Magnitude(agent.destination - transform.position) < 0.4)
                     m_State = CoffeeState.waiting;
                 break;
         }

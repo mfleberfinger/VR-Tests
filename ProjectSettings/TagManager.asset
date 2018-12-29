@@ -10,6 +10,7 @@ TagManager:
   - Breakable
   - Can
   - Watch
+  - coffee
   layers:
   - Default
   - TransparentFX

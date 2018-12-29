@@ -17,9 +17,9 @@ public class CoffeeSlaveSpawner : MonoBehaviour
     [SerializeField]
     public GameObject spawnLoc;
     [SerializeField]
-    public float spawnTimer = 15.0f;
+    public float spawnTimer = 05.0f;
 
-    private float m_coolDownTime = 15.0f;
+    private float m_coolDownTime = 05.0f;
     private List<GameObject> m_prefabs = new List<GameObject>();
 
     // Start is called before the first frame update
