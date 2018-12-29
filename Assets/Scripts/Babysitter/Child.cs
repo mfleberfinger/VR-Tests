@@ -22,8 +22,14 @@ public class Child : MonoBehaviour
 	[SerializeField]
 	private AudioClip hitSound = null;
 
+	[Tooltip("Animator for this character.")]
+	[SerializeField]
+	private Animator anim = null;
+
 	[Tooltip("Clips to choose from to play when something breaks.")]
 	public AudioClip[] breakSounds;
+
+
 
 	private static Queue<TiltSensor> m_tiltSensors;
 
@@ -37,30 +43,47 @@ public class Child : MonoBehaviour
 
 		m_agent = GetComponent<NavMeshAgent>();
 
-		// Initialize the destination value of NavMesh to allow us to check it
-		// properly in the if statement in Update().
+		// Initialize the destination to current position.
 		m_agent.destination = transform.position;
+		// Disable automatic NavMesh navigation.
+		m_agent.updatePosition = false;
+		m_agent.updateRotation = false;
 		m_stunCountdown = 0f;
+		anim.SetFloat("Speed", 0.5f);
 	}
 
+	// TiltSensors will identify themselves to Child. Choose the next
+	// one and pathfind to it. Once it is broken, choose the next one
+	// available. Repeat until out of things to break.
 	private void Update()
 	{
-		// TiltSensors will identify themselves to Child. Choose the next
-		// one and pathfind to it. Once it is broken, choose the next one
-		// available. Repeat until out of things to break.
-		if (Mathf.Approximately(transform.position.x, m_agent.destination.x) &&
-			Mathf.Approximately(transform.position.z, m_agent.destination.z) &&
-			m_tiltSensors.Count > 0 && m_stunCountdown <= 0)
+		if(Mathf.Approximately(transform.position.x, m_agent.destination.x) &&
+			Mathf.Approximately(transform.position.z, m_agent.destination.z))
 		{
-			m_agent.isStopped = false;
-			m_agent.destination = m_tiltSensors.Dequeue().transform.position;
+			if (m_tiltSensors.Count > 0)
+				m_agent.destination = m_tiltSensors.Dequeue().transform.position;
 		}
-		else if (m_tiltSensors.Count == 0)
-			m_agent.isStopped = false;
-		else if (m_stunCountdown > 0)
+
+		if (m_stunCountdown > 0)
 			m_stunCountdown -= Time.deltaTime;
-		else if (m_stunCountdown <= 0)
-			m_agent.isStopped = false;
+
+		// Get vector to the next NavMeshAgent position and set the vertical
+		// part to 0.
+		Vector3 pos = transform.position;
+		pos = new Vector3(pos.x, 0f, pos.z);
+		Vector3 next = m_agent.nextPosition;
+		next = new Vector3(next.x, 0f, next.z);
+		Vector3 heading = pos - next;
+
+		// Get our forward vector and set the vertical part to 0.
+		Vector3 forward = transform.forward;
+		forward = new Vector3(forward.x, 0f, forward.z);
+
+		// Get the angle between the forward vector and the heading vector and
+		// set the steering variable proportionately.
+		float angle = Vector3.SignedAngle(forward, heading, Vector3.up);
+		
+		anim.SetFloat("Turn", -(angle / 180));
 	}
 
 	/// <summary>
