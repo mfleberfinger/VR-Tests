@@ -10,8 +10,8 @@ public class Discipliner : MonoBehaviour
 	{
 		Child m_child = col.gameObject.GetComponent<Child>();
 
-		// If this collides with a child while held by the player, hit the child.
-		if (gameObject.layer == 9 && m_child != null)
+		// If this collides with a child, hit the child.
+		if (m_child != null)
 			m_child.Hit();
 	}
 }
